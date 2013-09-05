@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 E1FTW Games. All rights reserved.
 //
 
+#include <stdio.h>
 #include <string>
 #include <sys/time.h>
 

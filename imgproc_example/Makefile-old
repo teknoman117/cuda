@@ -29,4 +29,4 @@ clean:
 	$(CXX) $(CXXFLAGS) $< -c -o $@
 
 .cu.o:
-	$(CUDACC) $(CUDACFLAGS) $< -c -o $@
+	$(CUDACC) --compiler-bindir /opt/gcc-4.6.4/bin $(CUDACFLAGS) $< -c -o $@
