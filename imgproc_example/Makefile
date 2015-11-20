@@ -1,32 +1,23 @@
 # Compile the my CUDA examples
 
-CC=/opt/gcc-4.6.4/bin/gcc-4.6.4
-CXX=/opt/gcc-4.6.4/bin/g++-4.6.4
 CUDACC=nvcc
+CUDACFLAGS=
 
-CXXFLAGS=-ggdb
-CUDACFLAGS=-m64
-
-LDFLAGS=-L/usr/local/cuda/lib64 -lcuda -lcublas -lcudart 
 RM=rm -rf
 
-CUDA_SOURCES=imgproc.cu
-SOURCES=imgproc_main.cpp
-CUDA_OBJECTS=$(CUDA_SOURCES:.cu=.o)
-OBJECTS=$(SOURCES:.cpp=.o)
+SOURCES=main.cu
+OBJECTS=$(SOURCES:.cu=.o)
+LDFLAGS=-lopencv_core -lopencv_highgui -lopencv_imgproc
 
-.SUFFIXES: .cpp .cu .o
+.SUFFIXES: .cu .o
 
 all: imgproc
 
-imgproc: imgproc.h $(OBJECTS) $(CUDA_OBJECTS)
-	$(CXX) -lopencv_core -lopencv_highgui -lopencv_imgproc $(LDFLAGS) $(CUDA_OBJECTS) $(OBJECTS) -o imgproc
+imgproc: $(OBJECTS)
+	$(CUDACC) $(LDFLAGS) $(OBJECTS) -o imgproc
 
 clean:
 	$(RM) *.o imgproc
-
-.cpp.o:
-	$(CXX) $(CXXFLAGS) $< -c -o $@
 
 .cu.o:
 	$(CUDACC) $(CUDACFLAGS) $< -c -o $@
