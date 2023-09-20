@@ -154,7 +154,7 @@ int main (int argc, char** argv)
     {
         // Capture the image and store a gray conversion to the gpu
         camera >> frame;
-        cv::cvtColor(frame, source, CV_BGR2GRAY);
+        cv::cvtColor(frame, source, cv::COLOR_BGR2GRAY);
         
         // Record the time it takes to process
         cudaEventRecord(start);
